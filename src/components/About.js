@@ -5,7 +5,7 @@ import { useContext, useEffect } from 'react'
 const About = () => {
   
   return (
-    <div>This is about component </div>
+    <div>Hello i'm about component </div>
   )
 }
 
