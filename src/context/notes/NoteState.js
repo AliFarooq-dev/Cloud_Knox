@@ -3,7 +3,9 @@ import NoteContext from "./NoteContext";
 const host = "http://localhost:5000"
 const NoteState = (props) => {
   const initialNotes = [];
+  const initialUser = []
   const [notes, setnotes] = useState(initialNotes)
+  const [user, setuser] = useState(initialUser)
   //API CALLS
   const getAllNotes = async () => {
 
@@ -17,6 +19,7 @@ const NoteState = (props) => {
     });
     const note = await response.json();
     setnotes(note);
+    console.log(    note   )
 
   }
 
@@ -30,7 +33,8 @@ const NoteState = (props) => {
       body: JSON.stringify({ title, description })
     });
     const note = await response.json()
-    setnotes(notes.concat(note));
+    const newnotes = notes.concat(note);
+    setnotes(newnotes);
   }
 
   const deleteNote = async (id) => {
@@ -45,7 +49,7 @@ const NoteState = (props) => {
     const newNote = notes.filter((note) => { return note._id !== id });
     setnotes(newNote);
   }
-  
+
   const editNote = async (id, title, description) => {
     //API CAll
     const response = await fetch(`${host}/api/updatenote/${id}`, {
@@ -57,7 +61,6 @@ const NoteState = (props) => {
       body: JSON.stringify({ title, description })
     });
     const json = await response.json();
-    console.log(json)
     let newNotes = JSON.parse(JSON.stringify(notes))
     // LOGIC TO EDIT NOTE
     for (let index = 0; index < newNotes.length; index++) {
@@ -68,11 +71,24 @@ const NoteState = (props) => {
         break;
       }
     }
-    console.log(id, newNotes)
     setnotes(newNotes)
   }
+
+  const getUser = async () => {
+    const response = await fetch(`${host}/api/getThisUser`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'auth-token': localStorage.getItem('auth-token')
+      },
+
+    });
+    const User = await response.json();
+    console.log(User)
+    setuser(User)
+  }
   return (
-    <NoteContext.Provider value={{ notes, setnotes, addNote, deleteNote, editNote, getAllNotes }}>
+    <NoteContext.Provider value={{ notes, setnotes, addNote, deleteNote, editNote, getAllNotes, getUser, user }}>
       {props.children}
     </NoteContext.Provider>
   )

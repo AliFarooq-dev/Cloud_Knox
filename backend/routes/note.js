@@ -31,9 +31,9 @@ router.post('/addnote', fetchUser, [
     try {
         const { title, description } = req.body;
         const Note = new note({ description, title, User: req.User.id });
-        const savedNote = await Note.save();
-        return res.json({ savedNote });
-
+        Note.save();
+        return res.json(Note);
+        // const savedNote = await Note.save()
     } catch (error) {
         return res.status(500).json({ error: "internal server error" });
     }
@@ -59,7 +59,7 @@ router.put('/updatenote/:id', fetchUser, async (req, res) => {
         if (!Note) {
             return res.status(404).send('Not found')
         }
-        // if (Note.User.toString() !== req.params.id) {
+        // if (Note.User.id !== req.params.id) {
         //     return res.status(401).send("invalid access");
         // }
         Note = await note.findByIdAndUpdate(req.params.id, { $set: newNote }, { new: true });

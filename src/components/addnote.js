@@ -20,23 +20,20 @@ const AddNote = () => {
 
     return (
         <div className="container my-3">
-
             <h2>Add Your Note </h2>
-            <form>
-                <Box
-                    component="form"
-                    // sx={{width: '30%' }}
-                    noValidate
-                    autoComplete="off"
-                >
-                    <TextField id="title" sx={{width: '50%' }} label="Title" variant="standard" value={note.title} name='title' onChange={onChange} />
-                    <br />
-                    <br />
-                    <TextField label="Description" sx={{width: '50%' }} variant="outlined" id="description" value={note.description} name='description' onChange={onChange} />
-                </Box>
+            <Box
+                component="form"
+                // sx={{width: '30%' }}
+                noValidate
+                autoComplete="off"
+            >
+                <TextField id="title" sx={{ width: '50%' }} label="Title" variant="standard" value={note.title} name='title' onChange={onChange} />
                 <br />
-                <Button type='submit' onClick={handleClick} variant="contained">Submit</Button>
-            </form>
+                <br />
+                <TextField label="Description" sx={{ width: '50%' }} variant="outlined" id="description" value={note.description} name='description' onChange={onChange} />
+            </Box>
+            <br />
+            <Button type='submit' onClick={handleClick} variant="contained">Submit</Button>
         </div>
     )
 }

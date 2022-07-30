@@ -14,7 +14,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import { CurtainsClosedRounded } from '@mui/icons-material';
+
 
 function Copyright(props) {
   return (
@@ -32,7 +32,7 @@ function Copyright(props) {
 export default function SignUp(props) {
   const { showAlert } = props;
   const Navigate = useNavigate();
-  const [cred, setCred] = useState({ name: '', email: '', password: '' })
+  const [cred, setCred] = useState({ firstName: '', lastName: '', phoneNumber: '', email: '', password: '' })
   const theme = createTheme();
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -41,10 +41,9 @@ export default function SignUp(props) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({name: cred.name, email: cred.email, password: cred.password})
+      body: JSON.stringify({ firstName: cred.firstName, lastName: cred.lastName, email: cred.email, password: cred.password, phoneNumber: cred.phoneNumber })
     });
     const json = await response.json();
-    console.log(json);
     if (json.success) {
       localStorage.setItem('auth-token', json.authToken);
       Navigate('/');
@@ -57,7 +56,9 @@ export default function SignUp(props) {
   const onChange = (e) => {
     setCred({ ...cred, [e.target.name]: e.target.value })
   }
-
+  const navigateToLogin = () => {
+    Navigate('/login')
+  }
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -78,29 +79,43 @@ export default function SignUp(props) {
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
-              <Grid item xs={12} >
+              <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="given-name"
-                  name="name"
+                  name="firstName"
                   required
                   fullWidth
-                  id="name"
-                  label="First and Last Name"
-                  autoFocus
+                  id="firstName"
+                  label="First Name"
                   onChange={onChange}
-                  value={cred.name}
+                  value={cred.firstName}
+                  autoFocus
                 />
               </Grid>
-              {/* <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={6}>
                 <TextField
                   required
                   fullWidth
                   id="lastName"
                   label="Last Name"
                   name="lastName"
+                  onChange={onChange}
+                  value={cred.lastName}
                   autoComplete="family-name"
                 />
-              </Grid> */}
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="phoneNumber"
+                  label="Phone Number"
+                  name="phoneNumber"
+                  autoComplete="phoneNumber"
+                  onChange={onChange}
+                  value={cred.phoneNumber}
+                />
+              </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
@@ -126,12 +141,6 @@ export default function SignUp(props) {
                   value={cred.password}
                 />
               </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
-                />
-              </Grid>
             </Grid>
             <Button
               type="submit"
@@ -143,7 +152,7 @@ export default function SignUp(props) {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link to="/login" variant="body2">
+                <Link onClick={navigateToLogin} variant="body2" style={{ cursor: 'pointer' }}>
                   Already have an account? Sign in
                 </Link>
               </Grid>

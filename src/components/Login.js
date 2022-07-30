@@ -20,7 +20,7 @@ function Copyright(props) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
             {'Copyright © '}
-            <Link color="inherit" href="https://mui.com/">
+            <Link color="inherit" href="">
                 cBook
             </Link>{' '}
             {/* {new Date().getFullYear()} */}
@@ -49,13 +49,15 @@ const Login = (props) => {
             Navigate('/');
         }
         else {
-            showAlert("error" ,"Something Went Wrong")
+            showAlert("error", "Something Went Wrong")
         }
     }
     const onChange = (e) => {
         setcred({ ...cred, [e.target.name]: e.target.value })
     }
-
+    const navigateToSignUp = () => {
+        Navigate('/sign')
+    }
     return (
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">
@@ -71,7 +73,7 @@ const Login = (props) => {
                     <Avatar sx={{ m: 1, bgcolor: 'pink' }}>
                         <LockOutlinedIcon />
                     </Avatar>
-                    <Typography component="h1" variant="h5">
+                    <Typography component="h1" variant="h4">
                         Login
                     </Typography>
                     <Box component="form" onSubmit={handleLogin} noValidate sx={{ mt: 1 }}>
@@ -106,7 +108,7 @@ const Login = (props) => {
                         <Button
                             type="submit"
                             fullWidth
-                            variant="contained"
+                            variant="outlined"
                             sx={{ mt: 3, mb: 2 }}
                         >
                             Login
@@ -118,7 +120,7 @@ const Login = (props) => {
                 </Link>
               </Grid> */}
                             <Grid item>
-                                <Link to="/sign" variant="body2">
+                                <Link to="/sign" onClick={navigateToSignUp} variant="body2" style={{ cursor: 'pointer' }}>
                                     {"Don't have an account? Sign Up"}
                                 </Link>
                             </Grid>

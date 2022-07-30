@@ -1,3 +1,4 @@
+import * as React from 'react';
 import Nav from './components/Nav'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from './components/Home';
@@ -7,7 +8,9 @@ import Login from './components/Login';
 import SignUp from './components/SignUp'
 import Alerts from "./components/Alert"
 import { useState } from 'react';
+import Profile from './components/Profile';
 function App() {
+  document.body.style.backgroundColor = '#f8f9fa';
   const [alert, setAlert] = useState(null);
   const showAlert = (typ, message) => {
     setAlert({
@@ -17,18 +20,20 @@ function App() {
     setTimeout(() => {
       setAlert(null);
     }, 2000);
-  }
+  };
+  
   return (
     <>
       <NoteState>
         <BrowserRouter>
-          <Nav />
-          < Alerts alert={alert}/>
+          <Nav  />
+          < Alerts alert={alert} />
           <Routes>
-            <Route exact path='/' element={<Home showAlert={showAlert}/>} />
+            <Route exact path='/' element={<Home showAlert={showAlert} />} />
             <Route exact path="/about" element={<About />} />
-            <Route exact path="/login" element={<Login showAlert={showAlert}/>} />
-            <Route exact path="/sign" element={<SignUp showAlert={showAlert}/>} />
+            <Route exact path="/login" element={<Login showAlert={showAlert} />} />  
+          <Route exact path="/sign" element={<SignUp showAlert={showAlert} />} />
+          <Route exact path="/profile" element={<Profile/>}/>
           </Routes>
         </BrowserRouter>
       </NoteState>

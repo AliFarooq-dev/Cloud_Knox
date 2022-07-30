@@ -1,7 +1,6 @@
 import React from 'react'
 import { Notecard } from './notecard'
 import { useContext, useEffect, useRef, useState } from "react"
-import AlertContext from "../context/AlertContext"
 import noteContext from "../context/notes/NoteContext"
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -22,6 +21,7 @@ const style = {
     boxShadow: 24,
     p: 4,
 };
+
 const Notes = (props) => {
     const Navigate = useNavigate();
     const { showAlert } = props;
@@ -29,10 +29,12 @@ const Notes = (props) => {
     const { notes, getAllNotes, editNote } = context;
     const [note, setNote] = useState({ id: '', etitle: "", edescription: "" });
     const ref = useRef(null);
+
     const update = (note) => {
         ref.current.click();
         setNote({ id: note._id, etitle: note.title, edescription: note.description })
     }
+
     // For Modal Component
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
@@ -40,8 +42,9 @@ const Notes = (props) => {
         e.preventDefault();
         setOpen(false);
     }
-
+   
     const refClose = useRef(null)
+
     const handleClick = (e) => {
         e.preventDefault();
         editNote(note.id, note.etitle, note.edescription);
@@ -57,7 +60,7 @@ const Notes = (props) => {
             getAllNotes();
         }
         else {
-            Navigate('/sign');
+            Navigate('/login');
         }
         // eslint-disable-next-line 
     }, [])
@@ -94,8 +97,8 @@ const Notes = (props) => {
             </Modal>
             <div className='row my-3'>
                 <h2> Your Notes</h2>
-                {notes.map((note) => {
-                    return <Notecard key={notes._id} update={update} note={note} />
+                {notes.map((note, index) => {
+                    return <Notecard key={index} update={update} note={note} />
                 })}
             </div>
         </div>
