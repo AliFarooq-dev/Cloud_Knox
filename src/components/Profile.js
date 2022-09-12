@@ -56,7 +56,7 @@ export default function VerticalTabs() {
 
   return (
     <>
-      <h2>General information</h2>
+      <p style={{fontSize: '20px', fontWeight: 'normal', marginLeft: '10px'}} >General information</p>
       <Box
         sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex', height: 500 }}
       >

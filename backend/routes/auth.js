@@ -6,7 +6,8 @@ const jwt = require('jsonwebtoken');
 const JWT_SECRET = 'aliis$boy';
 const fetchUser = require('../middleware/fetchUser');
 const { body, validationResult } = require('express-validator');
-const login = require('../controllers/authentication')
+const login = require('../controllers/authentication');
+const { findByIdAndUpdate } = require('../models/User');
 // ROUTE 1: CREATE A SIGNUP FOR NEW USER
 
 router.post('/signup', [
@@ -118,7 +119,7 @@ router.get('/getThisUser', fetchUser, async (req, res) => {
       return res.status(500).json({ error: "internal server error" });
    }
 })
-module.exports = router;
+
 
 //ROUTE 4: CHANGE THE PASSWORD
 
@@ -130,12 +131,22 @@ router.put('/changepassword', fetchUser, async (req, res) => {
       if (!User) {
          return res.status(500).json({ error: "internal server error" });
       }
+      console.log(User.password);
       const comparePassword = await bcrypt.compare(oldPassword, User.password);
       if (!comparePassword) {
          return res.status(401).json({ error: "Enter correct password" });
       }
+      if (newPassword !== confirmPassword) {
+         return res.status(401).json({ error: "Enter correct password" });
+      }
+      let salt = await bcrypt.genSalt(6);
+      let newHashPassword = await bcrypt.hash(newPassword, salt);
+      console.log(newHashPassword);
+      User.password = await findByIdAndUpdate(userId, { $set: newHashPassword }, { new: true });
 
    } catch (error) {
       return res.status(500).json({ error: "internal server error" });
    }
 })
+
+module.exports = router;
