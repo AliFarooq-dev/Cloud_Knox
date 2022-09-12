@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
-import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
@@ -11,7 +10,6 @@ import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
 import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
@@ -56,9 +54,9 @@ const Nav = () => {
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark" style={{ height: '65px' }}>
+      <nav className="navbar navbar-expand-sm  navbar-dark bg-dark" >
         <div className="container-fluid">
-          <a className="navbar-brand" href='/'><h2 style={{ fontWeight: "normal" }} >Cloud Notes</h2></a>
+          <a className="navbar-brand" href='/'><h4  >Cloud Notes</h4></a>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
@@ -66,10 +64,10 @@ const Nav = () => {
           <div className="collapse navbar-collapse" id="navbarNavDropdown">
             <ul className="navbar-nav">
               <li className="nav-item">
-                <Link className={`nav-link ${`location.pathname` === '/' ? 'active' : ""} mx-4`} aria-current="page" to="/"><h5 style={{ fontWeight: "normal" }} >Home</h5></Link>
+                <Link className={`nav-link ${`location.pathname` === '/' ? 'active' : ""} mx-4`} aria-current="page" to="/"><p >Home</p></Link>
               </li>
               <li className="nav-item">
-                <Link className={`nav-link ${`location.pathname` === '/about' ? 'active' : ""} mx-4`} to="/about"><h5 style={{ fontWeight: "normal" }} >About</h5></Link>
+                <Link className={`nav-link ${`location.pathname` === '/about' ? 'active' : ""} mx-4`} to="/about"><p >About</p></Link>
               </li>
 
               {localStorage.getItem('auth-token') && <li style={{ float: 'right' }} className="nav-item">

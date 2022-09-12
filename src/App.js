@@ -21,19 +21,19 @@ function App() {
       setAlert(null);
     }, 2000);
   };
-  
+
   return (
     <>
       <NoteState>
         <BrowserRouter>
-          <Nav  />
+          <Nav />
           < Alerts alert={alert} />
           <Routes>
             <Route exact path='/' element={<Home showAlert={showAlert} />} />
             <Route exact path="/about" element={<About />} />
-            <Route exact path="/login" element={<Login showAlert={showAlert} />} />  
-          <Route exact path="/sign" element={<SignUp showAlert={showAlert} />} />
-          <Route exact path="/profile" element={<Profile/>}/>
+            <Route exact path="/login" element={<Login showAlert={showAlert} />} />
+            <Route exact path="/sign" element={<SignUp showAlert={showAlert} />} />
+            <Route exact path="/profile" element={<Profile />} />
           </Routes>
         </BrowserRouter>
       </NoteState>

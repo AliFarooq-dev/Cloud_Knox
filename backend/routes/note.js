@@ -66,7 +66,7 @@ router.put('/updatenote/:id', fetchUser, async (req, res) => {
         return res.json(Note);
     } catch (error) {
         return res.status(500).json({ error: "internal server error" });
-    }
+    };
 });
 
 router.delete('/deletenote/:id', fetchUser, async (req, res) => {

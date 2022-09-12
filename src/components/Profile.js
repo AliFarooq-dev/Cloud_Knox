@@ -12,6 +12,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import Changepassword from './Changepassword'
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -134,10 +135,10 @@ export default function VerticalTabs() {
           </Box>
         </TabPanel>
         <TabPanel value={value} index={1}>
-          Item Two
+        <Changepassword/>
         </TabPanel>
         <TabPanel value={value} index={2}>
-          Item Three
+         
         </TabPanel>
         <TabPanel value={value} index={3}>
           Item Four

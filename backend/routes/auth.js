@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 const JWT_SECRET = 'aliis$boy';
 const fetchUser = require('../middleware/fetchUser');
 const { body, validationResult } = require('express-validator');
-
+const login = require('../controllers/authentication')
 // ROUTE 1: CREATE A SIGNUP FOR NEW USER
 
 router.post('/signup', [
@@ -60,38 +60,37 @@ router.post('/signup', [
 router.post('/login', [
    body('email').isEmail(),
    body('password').exists()
-],
-   async (req, res) => {
-      let success = false;
-      const error = validationResult(req);
-      if (!error.isEmpty()) {
+], async (req, res) => {
+   let success = false;
+   const error = validationResult(req);
+   if (!error.isEmpty()) {
+      success = false;
+      return res.status(400).json({ success, error: error.array() });
+   }
+   const { email, password } = req.body;
+   try {
+      let User = await user.findOne({ email });
+      if (!User) {
          success = false;
-         return res.status(400).json({ success, error: error.array() });
+         return res.status(404).json({ success, error: "email issue" });
       }
-      const { email, password } = req.body;
-      try {
-         let User = await user.findOne({ email });
-         if (!User) {
-            success = false;
-            return res.status(404).json({ success, error: "email issue" });
-         }
-         const passwordCompare = await bcrypt.compare(password, User.password);
-         if (!passwordCompare) {
-            success = false;
-            return res.status(401).json({ success, error: 'pass issue' });
-         }
-         let data = {
-            User: {
-               id: User.id
-            }
-         }
-         const authToken = jwt.sign(data, JWT_SECRET);
-         success = true;
-         return res.json({ success, authToken });
-      } catch (error) {
-         return res.status(500).json({ error: "internal server error" });
+      const passwordCompare = await bcrypt.compare(password, User.password);
+      if (!passwordCompare) {
+         success = false;
+         return res.status(401).json({ success, error: 'pass issue' });
       }
-   });
+      let data = {
+         User: {
+            id: User.id
+         }
+      }
+      const authToken = jwt.sign(data, JWT_SECRET);
+      success = true;
+      return res.json({ success, authToken });
+   } catch (error) {
+      return res.status(500).json({ error: "internal server error" });
+   }
+});
 
 
 //  ROUTE 2: MIDDLEWARE TO GET USER DETAILS |-------------------------------------------------------------
@@ -121,4 +120,22 @@ router.get('/getThisUser', fetchUser, async (req, res) => {
 })
 module.exports = router;
 
+//ROUTE 4: CHANGE THE PASSWORD
 
+router.put('/changepassword', fetchUser, async (req, res) => {
+   try {
+      let { oldPassword, newPassword, confirmPassword } = req.body;
+      let userId = req.User.id;
+      let User = await user.findById(userId);
+      if (!User) {
+         return res.status(500).json({ error: "internal server error" });
+      }
+      const comparePassword = await bcrypt.compare(oldPassword, User.password);
+      if (!comparePassword) {
+         return res.status(401).json({ error: "Enter correct password" });
+      }
+
+   } catch (error) {
+      return res.status(500).json({ error: "internal server error" });
+   }
+})

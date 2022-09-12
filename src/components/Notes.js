@@ -52,7 +52,7 @@ const Notes = (props) => {
         refClose.current.click();
     }
     const onChange = (e) => {
-        setNote({ ...note, [e.target.name]: e.target.value });
+        setNote({...note, [e.target.name]:e.target.value});
     }
     //----------------------------------------
     useEffect(() => {
