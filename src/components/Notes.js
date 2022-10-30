@@ -96,7 +96,7 @@ const Notes = (props) => {
                 </Box>
             </Modal>
             <div className='row my-3'>
-                <h2> Your Notes</h2>
+                <h2 style={{fontWeight: 'normal'}}>  Your Notes</h2>
                 {notes.map((note, index) => {
                     return <Notecard key={index} update={update} note={note} />
                 })}

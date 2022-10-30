@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import css from '../App.css'
+import  '../App.css'
 import { useState } from 'react';
 export default function BasicTextFields() {
     const [oldPassword, setoldPassword] = useState('');
@@ -29,12 +29,12 @@ export default function BasicTextFields() {
             noValidate
             autoComplete="off"
         >
-            <TextField id="oldPassword" value={oldPassword} name='oldPassword' onChange={onChange1} label="Old password" variant="outlined" />
+            <TextField type='password' id="oldPassword" value={oldPassword} name='oldPassword' onChange={onChange1} label="Old password" variant="outlined" />
 
             <br />
             <br />
-            <TextField id="newPassword" value={newPassword} name='newPassword' onChange={onChange2} label="New Password" variant="outlined" />
-            < TextField id="conformPassword" value={conformPassword} name='conformPassword' onChange={onChange} label="Confirm Password" variant="outlined" />
+            <TextField type='password' id="newPassword" value={newPassword} name='newPassword' onChange={onChange2} label="New Password" variant="outlined" />
+            < TextField type='password' id="conformPassword" value={conformPassword} name='conformPassword' onChange={onChange} label="Confirm Password" variant="outlined" />
             <br />
             <br />
             <button className='passwordButton' onClick={handleChangePassword}>Change</button>

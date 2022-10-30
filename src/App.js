@@ -10,7 +10,7 @@ import Alerts from "./components/Alert"
 import { useState } from 'react';
 import Profile from './components/Profile';
 function App() {
-  document.body.style.backgroundColor = '#f8f9fa';
+  document.body.style.backgroundColor = 'white';
   const [alert, setAlert] = useState(null);
   const showAlert = (typ, message) => {
     setAlert({

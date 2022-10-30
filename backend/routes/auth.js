@@ -46,7 +46,7 @@ router.post('/signup', [
          User: {
             id: User.id
          }
-      }
+      };
       success = true;
       const authToken = jwt.sign(data, JWT_SECRET);
       success = true;
@@ -123,10 +123,11 @@ router.get('/getThisUser', fetchUser, async (req, res) => {
 
 //ROUTE 4: CHANGE THE PASSWORD
 
-router.put('/changepassword', fetchUser, async (req, res) => {
+router.put('/changepassword/:id', fetchUser, async (req, res) => {
    try {
       let { oldPassword, newPassword, confirmPassword } = req.body;
       let userId = req.User.id;
+      console.log(typeof userId)
       let User = await user.findById(userId);
       if (!User) {
          return res.status(500).json({ error: "internal server error" });

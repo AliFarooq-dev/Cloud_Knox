@@ -20,7 +20,7 @@ const AddNote = () => {
 
     return (
         <div className="container my-3">
-            <h2>Add Your Note </h2>
+            <h2 style={{fontFamily: "Cursive"}}>Add Your Note </h2>
             <Box
                 component="form"
                 // sx={{width: '30%' }}

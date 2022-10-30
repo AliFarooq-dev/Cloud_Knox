@@ -30,7 +30,7 @@ function Copyright(props) {
 export default function SignUp(props) {
   const { showAlert } = props;
   const Navigate = useNavigate();
-  const [cred, setCred] = useState({ firstName: '', lastName: '', phoneNumber: '', email: '', password: '' })
+  const [cred, setCred] = useState({ firstName: '', lastName: '', phoneNumber: '', email: '', password: '' });
   const theme = createTheme();
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -53,10 +53,10 @@ export default function SignUp(props) {
   };
   const onChange = (e) => {
     setCred({ ...cred, [e.target.name]: e.target.value })
-  }
+  };
   const navigateToLogin = () => {
     Navigate('/login')
-  }
+  };
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
